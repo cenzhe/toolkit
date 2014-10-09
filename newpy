@@ -8,11 +8,19 @@ elif [[ -e $1.py ]]
 then
     echo "$1.py already exists, skipping file creation..."
 else
-    echo '#!/usr/bin/python' > $1.py
-    echo '# -*- coding: utf-8 -*-' >> $1.py
-    echo '# Author: ZHU Cenzhe, Davy' >> $1.py
-    echo '# Email: cenzhe.zhu@gmail.com' >> $1.py
-    echo "# Creation time: `date`" >> $1.py
-    echo "" >> $1.py
+    cat <<EOF > $1.py
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Author: ZHU Cenzhe, Davy
+# Email: cenzhe.zhu@gmail.com
+# Description: 
+EOF
+    echo "# Creation time: $(date)" >> $1.py
+    cat <<EOF >> $1.py
+
+if __name__ == '__main__':
+    pass
+
+EOF
 fi
 
