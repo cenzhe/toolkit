@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# < 1 || $1 == -* ]]
+then
+    echo "Cenzhe's script to new shell script"
+    echo "Usage: $0 filename"
+elif [[ -e $1.sh ]]
+then
+    echo "$1.sh already exists, skipping file creation..."
+else
+    cat <<EOF > $1.sh
+#!/bin/bash
+# Author: ZHU Cenzhe, Davy
+# Email: cenzhe.zhu@gmail.com
+# Description: 
+EOF
+    echo "# Creation time: $(date)" >> $1.sh
+    chmod +x $1.sh
+fi

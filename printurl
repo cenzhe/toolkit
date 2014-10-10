@@ -1,0 +1,14 @@
+#!/bin/bash
+# Usage: ./printurl < url-encoded file descriptor
+# This script will translate it into things you can read shortly
+
+while read line ;
+do
+    for i in $(seq 1 999) ;
+    do
+        read line2 ;
+        line+=$'\n'$line2 ;
+    done
+    ll=`echo "$line" | sed 's!%!\\\\x!g'`
+    echo -e "$ll"
+done

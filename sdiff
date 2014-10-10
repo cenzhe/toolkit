@@ -1,0 +1,49 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Author: ZHU Cenzhe, Davy
+# Email: cenzhe.zhu@gmail.com
+# Description: 
+# Creation time: Fri Oct 10 15:42:55 CST 2014
+
+import re
+import httplib
+import json
+import gzip
+import string
+import urllib
+import sys
+import time
+
+def printUsage():
+    print("Usage: ./sdiff first second [removed] [added]")
+
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        printUsage()
+        sys.exit(0)
+    f1 = open(sys.argv[1], "r")
+    f2 = open(sys.argv[2], "r")
+    removedfilename = (len(sys.argv) >= 4) and sys.argv[3] or "removed"
+    addedfilename = (len(sys.argv) >= 5) and sys.argv[4] or "added"
+    removed = open(removedfilename, "w")
+    added = open(addedfilename, "w")
+    s1 = set()
+    s2 = set()
+
+    for line in f1:
+        s1.add(line)
+    f1.close()
+    for line in f2:
+        s2.add(line)
+    f2.close()
+
+    for item in s1:
+        if item not in s2:
+            removed.write(item)
+
+    for item in s2:
+        if item not in s1:
+            added.write(item)
+
+    removed.close()
+    added.close()
